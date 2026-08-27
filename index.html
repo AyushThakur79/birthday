@@ -129,9 +129,21 @@
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
+            animation: pulseGlow 2s infinite;
         }
         #music-control:active {
             transform: scale(0.9);
+        }
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(216, 78, 119, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(216, 78, 119, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(216, 78, 119, 0);
+            }
         }
 
         /* =========================================================
@@ -791,7 +803,7 @@
             text-align: left;
 
             transform:
-                translateX(-105%);
+                translateX(105%);
 
             transition:
                 transform 1s cubic-bezier(0.18, 0.85, 0.2, 1);
@@ -1370,7 +1382,7 @@
                             </h2>
 
                             <span>
-                                Swipe to open →
+                                ← Swipe to open
                             </span>
 
                         </div>
@@ -2079,14 +2091,14 @@
                     dragStartX;
 
                 // Visual feedback for swipe
-                const visualDistance = dragDistance > 0 ? dragDistance : dragDistance * 0.2;
+                const visualDistance = dragDistance < 0 ? dragDistance : dragDistance * 0.2;
                 envelope.style.transform = `translateX(${visualDistance}px)`;
 
                 /*
-                  Swipe RIGHT sufficiently.
+                  Swipe LEFT sufficiently.
                 */
 
-                if (dragDistance > 70) {
+                if (dragDistance < -70) {
 
                     envelope.style.transform = '';
                     openLetter();
@@ -2108,7 +2120,7 @@
             function () {
 
                 if (isDragging && !letterOpened) {
-                    const visualDistance = dragDistance > 0 ? dragDistance : dragDistance * 0.2;
+                    const visualDistance = dragDistance < 0 ? dragDistance : dragDistance * 0.2;
                     envelope.animate(
                         [
                             { transform: `translateX(${visualDistance}px)` },
