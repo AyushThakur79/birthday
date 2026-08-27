@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Happy Birthday Baby ❤️</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+        /* =========================================================
+       RESET
+    ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: "DM Sans", sans-serif;
+            color: #3c2930;
+
+            background:
+                radial-gradient(circle at 15% 15%,
+                    rgba(255, 255, 255, 0.95),
+                    transparent 28%),
+                radial-gradient(circle at 85% 80%,
+                    rgba(255, 180, 210, 0.35),
+                    transparent 35%),
+                linear-gradient(135deg,
+                    #fff7f8,
+                    #fff0f4);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+       APP
+    ========================================================= */
+
+        #app {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* =========================================================
+       SCREENS
+    ========================================================= */
+
+        .screen {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+
+            transform: scale(0.96) translateY(10px);
+
+            transition:
+                opacity 0.65s ease,
+                transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
+                visibility 0.65s;
+        }
+
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+        }
+
+        .content {
+            width: min(700px, 100%);
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* =========================================================
+       TYPOGRAPHY
+    ========================================================= */
+
+        .kicker {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            margin-bottom: 22px;
+        }
+
+        h1,
+        h2 {
+            font-family: "Playfair Display", serif;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: clamp(48px, 9vw, 86px);
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: clamp(38px, 7vw, 64px);
+            line-height: 1.08;
+            letter-spacing: -0.025em;
+            margin-bottom: 24px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            line-height: 1.7;
+            opacity: 0.65;
+        }
+
+        /* =========================================================
+       BUTTON
+    ========================================================= */
+
+        .primary-btn {
+            border: none;
+            outline: none;
+
+            margin-top: 30px;
+
+            padding: 15px 28px;
+
+            border-radius: 999px;
+
+            background: #3c2930;
+            color: #fff;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px rgba(60, 41, 48, 0.15);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 18px 40px rgba(60, 41, 48, 0.22);
+        }
+
+        .primary-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+       HEARTS
+    ========================================================= */
+
+        #heart-container {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+
+            opacity: 0;
+
+            font-size: 18px;
+
+            animation:
+                heartFloat linear forwards;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                opacity: 0;
+                transform:
+                    translateY(0) translateX(0) rotate(0deg) scale(0.7);
+            }
+
+            15% {
+                opacity: 0.6;
+            }
+
+            80% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translateY(-115vh) translateX(50px) rotate(300deg) scale(1.1);
+            }
+        }
+
+        /* =========================================================
+       SCREEN 2 — YES / NO
+    ========================================================= */
+
+        .question-area {
+            position: relative;
+
+            width: min(430px, 100%);
+            height: 150px;
+
+            margin: 0 auto;
+        }
+
+        .choice-btn {
+            position: absolute;
+
+            top: 35px;
+
+            border: none;
+            border-radius: 999px;
+
+            padding: 14px 28px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .yes-btn {
+            left: 50%;
+            transform: translateX(-115%);
+
+            background: #ff638f;
+            color: white;
+
+            box-shadow:
+                0 12px 30px rgba(255, 99, 143, 0.2);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .yes-btn:hover {
+            transform:
+                translateX(-115%) translateY(-3px);
+        }
+
+        .no-btn {
+            left: 50%;
+            transform: translateX(15%);
+
+            background: white;
+            color: #3c2930;
+
+            box-shadow:
+                0 8px 25px rgba(60, 41, 48, 0.1);
+
+            transition:
+                left 0.18s ease,
+                top 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        /* =========================================================
+       SCREEN 4 — CAKE
+    ========================================================= */
+
+        .cake-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cake-area {
+            position: relative;
+
+            width: 330px;
+            height: 330px;
+
+            margin: 0 auto 5px;
+        }
+
+        .cake {
+            position: absolute;
+
+            left: 50%;
+            bottom: 18px;
+
+            width: 280px;
+
+            transform: translateX(-50%);
+        }
+
+        .cake-layer {
+            position: relative;
+
+            margin-left: auto;
+            margin-right: auto;
+
+            border-radius:
+                14px 14px 9px 9px;
+
+            box-shadow:
+                inset 0 -8px rgba(0, 0, 0, 0.045),
+                0 12px 25px rgba(75, 40, 50, 0.1);
+        }
+
+        .cake-layer::before {
+            content: "";
+
+            position: absolute;
+
+            top: -8px;
+            left: 0;
+            right: 0;
+
+            height: 16px;
+
+            border-radius: 50%;
+
+            background: #fff;
+        }
+
+        .cake-layer::after {
+            content: "•• •• •";
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            color: rgba(255, 255, 255, 0.75);
+
+            font-size: 14px;
+            letter-spacing: 14px;
+
+            white-space: nowrap;
+        }
+
+        .layer-bottom {
+            width: 270px;
+            height: 70px;
+
+            background:
+                linear-gradient(180deg,
+                    #efadc2,
+                    #e59ab4);
+        }
+
+        .layer-middle {
+            width: 230px;
+            height: 65px;
+
+            background:
+                linear-gradient(180deg,
+                    #f7c3d3,
+                    #f1afc4);
+
+            margin-bottom: 2px;
+        }
+
+        .layer-top {
+            width: 190px;
+            height: 60px;
+
+            background:
+                linear-gradient(180deg,
+                    #ffdae4,
+                    #f9c6d6);
+
+            margin-bottom: 2px;
+        }
+
+        /* =========================================================
+       CANDLE
+    ========================================================= */
+
+        .candle {
+            position: absolute;
+
+            left: 50%;
+            top: -57px;
+
+            width: 18px;
+            height: 62px;
+
+            transform: translateX(-50%);
+
+            border-radius: 5px;
+
+            background:
+                repeating-linear-gradient(-45deg,
+                    #ffffff 0px,
+                    #ffffff 7px,
+                    #ff7fa4 7px,
+                    #ff7fa4 14px);
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            transition:
+                transform 0.2s ease;
+        }
+
+        .candle:hover {
+            transform:
+                translateX(-50%) scale(1.06);
+        }
+
+        .candle::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            bottom: -4px;
+
+            width: 2px;
+            height: 7px;
+
+            transform: translateX(-50%);
+
+            background: #333;
+        }
+
+        /* =========================================================
+       FLAME
+    ========================================================= */
+
+        .flame {
+            position: absolute;
+
+            left: 50%;
+            top: -31px;
+
+            width: 24px;
+            height: 34px;
+
+            transform:
+                translateX(-50%) rotate(-45deg);
+
+            transform-origin: center bottom;
+
+            border-radius:
+                50% 50% 50% 0;
+
+            background:
+                linear-gradient(135deg,
+                    #ffd95c,
+                    #ff9a2f);
+
+            box-shadow:
+                0 0 15px rgba(255, 180, 50, 0.65),
+                0 0 35px rgba(255, 160, 50, 0.35);
+
+            animation:
+                flameFlicker 0.5s ease-in-out infinite alternate;
+        }
+
+        .flame::after {
+            content: "";
+
+            position: absolute;
+
+            width: 9px;
+            height: 15px;
+
+            left: 6px;
+            top: 5px;
+
+            border-radius:
+                50% 50% 50% 0;
+
+            background: #fff7bd;
+        }
+
+        .flame.off {
+            opacity: 0;
+            transform:
+                translateX(-50%) rotate(-45deg) scale(0);
+            pointer-events: none;
+        }
+
+        @keyframes flameFlicker {
+            0% {
+                transform:
+                    translateX(-50%) rotate(-45deg) scale(0.92, 1);
+            }
+
+            100% {
+                transform:
+                    translateX(-50%) rotate(-43deg) scale(1.05, 1.1);
+            }
+        }
+
+        /* =========================================================
+       SMOKE
+    ========================================================= */
+
+        .smoke {
+            position: absolute;
+
+            left: 50%;
+            top: -73px;
+
+            font-size: 26px;
+
+            opacity: 0;
+
+            transform:
+                translateX(-50%) translateY(20px);
+
+            pointer-events: none;
+        }
+
+        .smoke.show {
+            animation:
+                smokeAnimation 1.7s ease-out forwards;
+        }
+
+        @keyframes smokeAnimation {
+            0% {
+                opacity: 0;
+                transform:
+                    translateX(-50%) translateY(20px) scale(0.7);
+            }
+
+            25% {
+                opacity: 0.55;
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                    translateX(-20%) translateY(-45px) scale(1.5);
+            }
+        }
+
+        .candle-instruction {
+            font-size: 16px;
+            opacity: 0.65;
+            margin-top: 2px;
+        }
+
+        .candle-subtext {
+            margin-top: 8px;
+            font-size: 12px;
+            opacity: 0.38;
+        }
+
+        /* =========================================================
+       CELEBRATION
+    ========================================================= */
+
+        .celebration {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            opacity: 0;
+
+            z-index: 100;
+        }
+
+        .celebration.active {
+            opacity: 1;
+        }
+
+        .confetti {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 8px;
+            height: 14px;
+
+            border-radius: 2px;
+
+            animation:
+                confettiFall 1.4s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform:
+                    translate(-50%, -50%) rotate(0deg) scale(0);
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translate(calc(-50% + var(--x)),
+                        calc(-50% + var(--y))) rotate(var(--rotation)) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* =========================================================
+       LETTER / ENVELOPE
+    ========================================================= */
+
+        .letter-screen-content {
+            width: min(650px, 100%);
+        }
+
+        .envelope-wrapper {
+            width: min(520px, 94vw);
+            height: min(360px, 70vh);
+
+            margin: 0 auto;
+
+            position: relative;
+
+            perspective: 1200px;
+        }
+
+        .envelope {
+            position: absolute;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(135deg,
+                    #efd3da,
+                    #e5c0ca);
+
+            box-shadow:
+                0 30px 80px rgba(65, 35, 45, 0.18);
+
+            touch-action: pan-y;
+
+            user-select: none;
+
+            cursor: grab;
+        }
+
+        .envelope:active {
+            cursor: grabbing;
+        }
+
+        /* Envelope bottom folds */
+
+        .envelope-left,
+        .envelope-right,
+        .envelope-bottom {
+            position: absolute;
+
+            z-index: 2;
+
+            pointer-events: none;
+        }
+
+        .envelope-left {
+            inset: 0;
+
+            clip-path:
+                polygon(0 0,
+                    50% 50%,
+                    0 100%);
+
+            background: #e4c0ca;
+        }
+
+        .envelope-right {
+            inset: 0;
+
+            clip-path:
+                polygon(100% 0,
+                    50% 50%,
+                    100% 100%);
+
+            background: #dfbac5;
+        }
+
+        .envelope-bottom {
+            inset: 0;
+
+            clip-path:
+                polygon(0 100%,
+                    50% 48%,
+                    100% 100%);
+
+            background: #e8c6cf;
+        }
+
+        /* Letter inside */
+
+        .letter {
+            position: absolute;
+
+            z-index: 3;
+
+            left: 6%;
+            top: 5%;
+
+            width: 88%;
+            height: 91%;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(180deg,
+                    #fffef9,
+                    #fffaf0);
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 10px 30px rgba(40, 25, 25, 0.1);
+
+            overflow-y: auto;
+
+            text-align: left;
+
+            transform:
+                translateY(105%);
+
+            transition:
+                transform 1s cubic-bezier(0.18, 0.85, 0.2, 1);
+
+            scrollbar-width: thin;
+        }
+
+        .letter.open {
+            transform:
+                translateY(-1%);
+        }
+
+        .letter h2 {
+            font-size: 38px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .letter p {
+            font-size: 15px;
+            line-height: 1.75;
+            color: #4b383e;
+        }
+
+        .letter-love {
+            text-align: left;
+
+            margin-top: 24px;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size: 34px;
+
+            color: #d84e77;
+        }
+
+        /* Envelope flap */
+
+        .flap {
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 62%;
+
+            z-index: 8;
+
+            background:
+                linear-gradient(135deg,
+                    #f1d4dc,
+                    #e9c7d0);
+
+            clip-path:
+                polygon(0 0,
+                    100% 0,
+                    50% 100%);
+
+            transform-origin: top center;
+
+            transition:
+                transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .envelope.open .flap {
+            transform:
+                rotateX(180deg);
+        }
+
+        /* Envelope text */
+
+        .envelope-message {
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 12;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-direction: column;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.4s ease;
+        }
+
+        .envelope.open .envelope-message {
+            opacity: 0;
+        }
+
+        .envelope-message h2 {
+            font-size: clamp(34px, 7vw, 52px);
+
+            margin-bottom: 10px;
+        }
+
+        .envelope-message span {
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+        /* Floating Photos */
+
+        .floating-photo {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+            width: clamp(100px, 22vw, 180px);
+            height: clamp(100px, 22vw, 180px);
+        }
+
+        .floating-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: floatPhoto 3.5s ease-in-out infinite alternate;
+        }
+
+        .photo-tl {
+            top: max(15px, calc(50vh - 320px));
+            left: max(15px, calc(50vw - 460px));
+            transform: rotate(-10deg);
+        }
+
+        .photo-tr {
+            top: max(15px, calc(50vh - 320px));
+            right: max(15px, calc(50vw - 460px));
+            transform: rotate(15deg);
+        }
+
+        .photo-bl {
+            bottom: max(15px, calc(50vh - 320px));
+            left: max(15px, calc(50vw - 460px));
+            transform: rotate(-8deg);
+        }
+
+        .photo-br {
+            bottom: max(15px, calc(50vh - 320px));
+            right: max(15px, calc(50vw - 460px));
+            transform: rotate(12deg);
+        }
+
+        .photo-tl img {
+            animation-delay: 0s;
+        }
+
+        .photo-tr img {
+            animation-delay: 0.7s;
+        }
+
+        .photo-bl img {
+            animation-delay: 1.4s;
+        }
+
+        .photo-br img {
+            animation-delay: 2.1s;
+        }
+
+        @keyframes floatPhoto {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* =========================================================
+       FINAL SCREEN
+    ========================================================= */
+
+        .final-screen {
+            overflow-y: auto;
+        }
+
+        .final-card {
+            width: min(680px, 100%);
+
+            max-height: 82vh;
+
+            overflow-y: auto;
+
+            padding: 42px 34px;
+
+            background:
+                rgba(255, 255, 255, 0.65);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.8);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 30px 80px rgba(80, 40, 50, 0.1);
+
+            backdrop-filter:
+                blur(18px);
+
+            text-align: left;
+
+            scrollbar-width: thin;
+        }
+
+        .final-card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .final-card p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .final-love {
+            text-align: center;
+
+            margin-top: 28px;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size: 40px;
+
+            color: #d84e77;
+        }
+
+        /* =========================================================
+       MOBILE
+    ========================================================= */
+
+        @media (max-width: 600px) {
+
+            .screen {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            h2 {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .cake-area {
+                transform: scale(0.86);
+                margin-top: -15px;
+                margin-bottom: -30px;
+            }
+
+            .question-area {
+                height: 180px;
+            }
+
+            .choice-btn {
+                top: 30px;
+            }
+
+            .yes-btn {
+                left: 50%;
+            }
+
+            .no-btn {
+                left: 50%;
+            }
+
+            .envelope-wrapper {
+                height: 340px;
+            }
+
+            .letter {
+                padding: 23px;
+            }
+
+            .letter h2 {
+                font-size: 32px;
+            }
+
+            .letter p {
+                font-size: 14px;
+            }
+
+            .final-card {
+                padding: 30px 22px;
+            }
+
+            .final-card p {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .cake-area {
+                transform: scale(0.72);
+                margin-top: -35px;
+                margin-bottom: -55px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <!-- FLOATING HEARTS -->
+        <div id="heart-container"></div>
+
+        <!-- =======================================================
+         SCREEN 1
+    ======================================================== -->
+
+        <section class="screen active" id="screen-1">
+            <div class="content">
+
+                <div class="kicker">
+                    A little surprise for you
+                </div>
+
+                <h1>
+                    Hi baby,<br>
+                    kaisi ho? 💗
+                </h1>
+
+                <p class="subtitle">
+                    Ek chhoti si cheez hai tumhare liye...
+                </p>
+
+                <button class="primary-btn" onclick="goToScreen(2)">
+                    Next →
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- =======================================================
+         SCREEN 2
+    ======================================================== -->
+
+        <section class="screen" id="screen-2">
+            <div class="content">
+
+                <div class="kicker">
+                    Be honest 👀
+                </div>
+
+                <h2>
+                    Are you feeling happy? 🥺
+                </h2>
+
+                <div class="question-area" id="questionArea">
+
+                    <button class="choice-btn yes-btn" onclick="goToScreen(3)">
+                        YES ❤️
+                    </button>
+
+                    <button class="choice-btn no-btn" id="noButton">
+                        NO
+                    </button>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =======================================================
+         SCREEN 3
+    ======================================================== -->
+
+        <section class="screen" id="screen-3">
+            <div class="content">
+
+                <div class="kicker">
+                    I already knew it
+                </div>
+
+                <h2>
+                    Mujhe pata hai,<br>
+                    mere saath rahogi toh<br>
+                    hamesha khush rahogi. 😌❤️
+                </h2>
+
+                <button class="primary-btn" onclick="goToScreen(4)">
+                    Obviously →
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- =======================================================
+         SCREEN 4 — CAKE
+    ======================================================== -->
+
+        <section class="screen" id="screen-4">
+            <div class="content cake-section">
+
+                <div class="kicker">
+                    Make a wish ✨
+                </div>
+
+                <div class="cake-area">
+
+                    <div class="cake">
+
+                        <!-- TOP LAYER -->
+                        <div class="cake-layer layer-top"></div>
+
+                        <!-- MIDDLE LAYER -->
+                        <div class="cake-layer layer-middle"></div>
+
+                        <!-- BOTTOM LAYER -->
+                        <div class="cake-layer layer-bottom"></div>
+
+                        <!-- CANDLE -->
+                        <div class="candle" id="candle" aria-label="Click the candle" role="button" tabindex="0">
+
+                            <div class="flame" id="flame"></div>
+
+                            <div class="smoke" id="smoke">
+                                ☁
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="candle-instruction" id="candleInstruction">
+                    Blow the candle 🕯️
+                </div>
+
+                <div class="candle-subtext" id="candleSubtext">
+                    Tap the candle to make your wish
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =======================================================
+         SCREEN 5 — ENVELOPE
+    ======================================================== -->
+
+        <section class="screen" id="screen-5">
+            <div class="content letter-screen-content">
+
+                <div class="kicker">
+                    One last thing...
+                </div>
+
+                <div class="envelope-wrapper" id="envelopeWrapper">
+
+                    <div class="envelope" id="envelope">
+
+                        <!-- LETTER -->
+                        <div class="letter" id="letter">
+
+                            <h2>
+                                Happy Birthday ❤️
+                            </h2>
+
+                            <p>
+
+                                Toh iss baar I hope main tumhe tumhare birthday pe achhi treat dungi aur purane
+                                birthdays ki tarah
+                                ye birthday tumhara spoil nahi karungi. 😂
+
+
+                                <br><br>
+
+                                Sabse pehle, I am very lucky ki hum itne time se saath hain, and mujhe bahut achha
+                                lagega jab hum
+                                future mein bhi aise hi saath honge, baatein karenge aur apne life experiences ek-dusre
+                                ke saath
+                                share karte rahenge.
+
+
+                                <br><br>
+
+                                I hope abhi jo tum struggle kar rahi ho, woh sab jaldi khatam ho jaaye and tum ek achhi
+                                life enjoy
+                                karo. Apna best life partner choose karo, jo tumhe waise treat kare jaise tum chahti ho
+                                aur jaise
+                                tum deserve karti ho. ❤️
+
+
+                                <br><br>
+
+                                And maybe main tumhe kam time deti hoon, utni priority nahi deti, but it doesn't mean ki
+                                main tumse
+                                kam pyaar karti hoon. Kaafi karti hoon, bas utna show nahi karti, because kabhi-kabhi
+                                for granted le
+                                leti hoon maybe. But yeah, I'll try, and I am trying ki tumhe hamesha achhe se treat
+                                karun.
+
+
+                                <br><br>
+
+                                Aur jaise-jaise life busy hoti ja rahi hai, I hope humein ladne ka time hi nahi milega.
+                                Ab tak jitni
+                                bhi ladai hui aur humne usko sort kiya, aur tumne bhi apne end se cheezein sort ki, uske
+                                liye thank
+                                you. Mujhe kaafi achha lagta hai jis tarah se tum meri care karti ho, mere liye stand
+                                leti ho aur
+                                mere kaam karne pe mujhe pay karti ho. 😂 Abhi tak sirf ₹500 ki payment aayi hai, I hope
+                                jaldi baaki
+                                payment bhi aa jaayegi.
+
+                                <br><br>
+
+                                Baaki birthday party bhi toh deni padegi ab aapko. Toh party mein meri do wishes hain —
+                                ek toh main
+                                tumhe khila dungi, aur tumse main chahti hoon ki tum mujhe Popeyes ka chicken khila do.
+                                Maza aa
+                                jaayega. 😂
+                                <br><br>
+                                And obviously, main chahti hoon ki aaj ka din tum mere saath spend karo. But agar
+                                tumhara banda aa
+                                jaata hai toh I don't have any problem, tum ja sakti ho uske saath. Bas phir bhi mujhe
+                                party de
+                                dena.
+
+                                <br><br>
+                                Baaki yes, I love you and thank you for staying by my side.
+                                <br><br>
+                                Itna hi likhna chahti thi main tumhare liye.
+                                <br><br>
+
+
+                            </p>
+
+                            <div class="letter-love">
+                                Happy Birthday, love you! ❤️
+                            </div>
+
+                        </div>
+
+
+                        <!-- ENVELOPE FOLDS -->
+
+                        <div class="envelope-left"></div>
+
+                        <div class="envelope-right"></div>
+
+                        <div class="envelope-bottom"></div>
+
+
+                        <!-- FLAP -->
+
+                        <div class="flap" id="flap"></div>
+
+
+                        <!-- FRONT MESSAGE -->
+
+                        <div class="envelope-message">
+
+                            <h2>
+                                Happy Birthday ❤️
+                            </h2>
+
+                            <span>
+                                Swipe to open →
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+    </div>
+    </section>
+
+
+    <!-- =======================================================
+         SCREEN 6 — FINAL
+         This screen is optional fallback / final state.
+    ======================================================== -->
+
+    <section class="screen final-screen" id="screen-6">
+
+        <div class="final-card">
+
+            <h2>
+                Happy Birthday ❤️
+            </h2>
+
+            <p>
+
+                Toh iss baar I hope main tumhe tumhare birthday pe achhi treat dungi aur purane birthdays ki tarah
+                ye birthday tumhara spoil nahi karungi. 😂
+
+
+                <br><br>
+
+                Sabse pehle, I am very lucky ki hum itne time se saath hain, and mujhe bahut achha lagega jab hum
+                future mein bhi aise hi saath honge, baatein karenge aur apne life experiences ek-dusre ke saath
+                share karte rahenge.
+
+
+                <br><br>
+
+                I hope abhi jo tum struggle kar rahi ho, woh sab jaldi khatam ho jaaye and tum ek achhi life enjoy
+                karo. Apna best life partner choose karo, jo tumhe waise treat kare jaise tum chahti ho aur jaise
+                tum deserve karti ho. ❤️
+
+
+                <br><br>
+
+                And maybe main tumhe kam time deti hoon, utni priority nahi deti, but it doesn't mean ki main tumse
+                kam pyaar karti hoon. Kaafi karti hoon, bas utna show nahi karti, because kabhi-kabhi for granted le
+                leti hoon maybe. But yeah, I'll try, and I am trying ki tumhe hamesha achhe se treat karun.
+
+
+                <br><br>
+
+                Aur jaise-jaise life busy hoti ja rahi hai, I hope humein ladne ka time hi nahi milega. Ab tak jitni
+                bhi ladai hui aur humne usko sort kiya, aur tumne bhi apne end se cheezein sort ki, uske liye thank
+                you. Mujhe kaafi achha lagta hai jis tarah se tum meri care karti ho, mere liye stand leti ho aur
+                mere kaam karne pe mujhe pay karti ho. 😂 Abhi tak sirf ₹500 ki payment aayi hai, I hope jaldi baaki
+                payment bhi aa jaayegi.
+
+                <br><br>
+
+                Baaki birthday party bhi toh deni padegi ab aapko. Toh party mein meri do wishes hain — ek toh main
+                tumhe khila dungi, aur tumse main chahti hoon ki tum mujhe Popeyes ka chicken khila do. Maza aa
+                jaayega. 😂
+                <br><br>
+                And obviously, main chahti hoon ki aaj ka din tum mere saath spend karo. But agar tumhara banda aa
+                jaata hai toh I don't have any problem, tum ja sakti ho uske saath. Bas phir bhi mujhe party de
+                dena.
+
+                <br><br>
+                Baaki yes, I love you and thank you for staying by my side.
+                <br><br>
+                Itna hi likhna chahti thi main tumhare liye.
+                <br><br>
+
+
+            </p>
+
+            <div class="final-love">
+                Happy Birthday, love you! ❤️
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FLOATING PHOTOS -->
+    <div class="floating-photo photo-tl">
+        <img src="photo 1.JPG" alt="Memory" />
+    </div>
+    <div class="floating-photo photo-tr">
+        <img src="photo 2.JPG" alt="Memory" />
+    </div>
+    <div class="floating-photo photo-bl">
+        <img src="photo 3.JPG" alt="Memory" />
+    </div>
+    <div class="floating-photo photo-br">
+        <img src="photo 4.jpg" alt="Memory" />
+    </div>
+
+    <!-- CONFETTI -->
+    <div class="celebration" id="celebration"></div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================================================
+           GLOBAL STATE
+        ========================================================= */
+
+        let currentScreen = 1;
+
+        let candleBlown = false;
+
+        let letterOpened = false;
+
+        let noMoveCount = 0;
+
+
+        /* =========================================================
+           SCREEN NAVIGATION
+        ========================================================= */
+
+        function goToScreen(screenNumber) {
+
+            const oldScreen =
+                document.getElementById(
+                    `screen-${currentScreen}`
+                );
+
+            const newScreen =
+                document.getElementById(
+                    `screen-${screenNumber}`
+                );
+
+            if (!oldScreen || !newScreen) {
+                return;
+            }
+
+            oldScreen.classList.remove("active");
+
+            newScreen.classList.add("active");
+
+            currentScreen = screenNumber;
+
+            createHearts(5);
+
+        }
+
+
+        /* =========================================================
+           FLOATING HEARTS
+        ========================================================= */
+
+        function createHearts(amount = 8) {
+
+            const container =
+                document.getElementById(
+                    "heart-container"
+                );
+
+            const hearts = [
+                "♥️",
+                "♡",
+                "❤",
+                "♡"
+            ];
+
+            for (let i = 0; i < amount; i++) {
+
+                const heart =
+                    document.createElement("div");
+
+                heart.className =
+                    "floating-heart";
+
+                heart.textContent =
+                    hearts[
+                    Math.floor(
+                        Math.random() * hearts.length
+                    )
+                    ];
+
+                heart.style.left =
+                    `${Math.random() * 100}%`;
+
+                heart.style.fontSize =
+                    `${12 + Math.random() * 22}px`;
+
+                heart.style.animationDuration =
+                    `${5 + Math.random() * 5}s`;
+
+                heart.style.animationDelay =
+                    `${Math.random() * 1.5}s`;
+
+                container.appendChild(heart);
+
+                setTimeout(
+                    () => heart.remove(),
+                    11000
+                );
+            }
+        }
+
+
+        /* =========================================================
+           NO BUTTON — ESCAPE
+        ========================================================= */
+
+        const noButton =
+            document.getElementById(
+                "noButton"
+            );
+
+        const questionArea =
+            document.getElementById(
+                "questionArea"
+            );
+
+
+        function moveNoButton() {
+
+            if (!noButton || !questionArea) {
+                return;
+            }
+
+            noMoveCount++;
+
+            const areaWidth =
+                questionArea.clientWidth;
+
+            const areaHeight =
+                questionArea.clientHeight;
+
+            const buttonWidth =
+                noButton.offsetWidth;
+
+            const buttonHeight =
+                noButton.offsetHeight;
+
+
+            const maxX =
+                Math.max(
+                    0,
+                    areaWidth - buttonWidth
+                );
+
+            const maxY =
+                Math.max(
+                    0,
+                    areaHeight - buttonHeight
+                );
+
+
+            /*
+              Keep the NO button away from
+              the YES button as much as possible.
+            */
+
+            let x;
+            let y;
+
+            do {
+
+                x =
+                    Math.random() * maxX;
+
+                y =
+                    Math.random() * maxY;
+
+            } while (
+                Math.abs(
+                    x - areaWidth / 2
+                ) < 80 &&
+                noMoveCount < 20
+            );
+
+
+            noButton.style.left =
+                `${x}px`;
+
+            noButton.style.top =
+                `${y}px`;
+
+            noButton.style.transform =
+                "translateX(0) rotate(" +
+                `${Math.random() * 14 - 7}deg)`;
+
+
+            /*
+              Little playful scale effect.
+            */
+
+            noButton.animate(
+                [
+                    {
+                        transform:
+                            "scale(0.85) rotate(-5deg)"
+                    },
+                    {
+                        transform:
+                            "scale(1.08) rotate(5deg)"
+                    },
+                    {
+                        transform:
+                            "scale(1) rotate(0deg)"
+                    }
+                ],
+                {
+                    duration: 300,
+                    easing:
+                        "cubic-bezier(.2,.8,.2,1)"
+                }
+            );
+        }
+
+
+        /*
+          Desktop hover.
+        */
+
+        noButton.addEventListener(
+            "mouseenter",
+            moveNoButton
+        );
+
+
+        /*
+          Mobile touch.
+        */
+
+        noButton.addEventListener(
+            "touchstart",
+            function (event) {
+
+                event.preventDefault();
+
+                moveNoButton();
+
+            },
+            {
+                passive: false
+            }
+        );
+
+
+        /*
+          If somehow clicked,
+          move again instead of accepting.
+        */
+
+        noButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                moveNoButton();
+
+            }
+        );
+
+
+        /*
+          Also detect pointer approach.
+        */
+
+        noButton.addEventListener(
+            "pointerenter",
+            moveNoButton
+        );
+
+
+        /* =========================================================
+           CANDLE
+        ========================================================= */
+
+        const candle =
+            document.getElementById(
+                "candle"
+            );
+
+        const flame =
+            document.getElementById(
+                "flame"
+            );
+
+        const smoke =
+            document.getElementById(
+                "smoke"
+            );
+
+        const candleInstruction =
+            document.getElementById(
+                "candleInstruction"
+            );
+
+        const candleSubtext =
+            document.getElementById(
+                "candleSubtext"
+            );
+
+
+        function blowCandle() {
+
+            if (candleBlown) {
+                return;
+            }
+
+            candleBlown = true;
+
+
+            /*
+              Turn flame off.
+            */
+
+            flame.classList.add("off");
+
+
+            /*
+              Show smoke.
+            */
+
+            smoke.classList.add("show");
+
+
+            /*
+              Update text.
+            */
+
+            candleInstruction.textContent =
+                "Wish made... ❤️";
+
+            candleSubtext.textContent =
+                "Something special is waiting for you...";
+
+
+            /*
+              Small celebration.
+            */
+
+            createConfetti();
+
+            createHearts(18);
+
+
+            /*
+              EXACTLY 3 SECOND DELAY
+            */
+
+            setTimeout(
+                function () {
+
+                    goToScreen(5);
+
+                },
+                3000
+            );
+        }
+
+
+        /*
+          Click candle.
+        */
+
+        candle.addEventListener(
+            "click",
+            blowCandle
+        );
+
+
+        /*
+          Keyboard accessibility.
+        */
+
+        candle.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    blowCandle();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CONFETTI
+        ========================================================= */
+
+        function createConfetti() {
+
+            const container =
+                document.getElementById(
+                    "celebration"
+                );
+
+            container.innerHTML = "";
+
+            container.classList.add(
+                "active"
+            );
+
+
+            for (let i = 0; i < 45; i++) {
+
+                const piece =
+                    document.createElement(
+                        "div"
+                    );
+
+                piece.className =
+                    "confetti";
+
+
+                /*
+                  Random pastel colors are
+                  generated directly here.
+                */
+
+                const colors = [
+                    "#ff638f",
+                    "#ffc2d5",
+                    "#f7b267",
+                    "#8ed1c5",
+                    "#b8a1ff",
+                    "#ffd166"
+                ];
+
+                piece.style.background =
+                    colors[
+                    Math.floor(
+                        Math.random() *
+                        colors.length
+                    )
+                    ];
+
+
+                piece.style.setProperty(
+                    "--x",
+                    `${Math.random() * 500 - 250}px`
+                );
+
+                piece.style.setProperty(
+                    "--y",
+                    `${Math.random() * 500 - 250}px`
+                );
+
+                piece.style.setProperty(
+                    "--rotation",
+                    `${Math.random() * 720 - 360}deg`
+                );
+
+
+                container.appendChild(
+                    piece
+                );
+            }
+
+
+            setTimeout(
+                function () {
+
+                    container.classList.remove(
+                        "active"
+                    );
+
+                    container.innerHTML = "";
+
+                },
+                1600
+            );
+        }
+
+
+        /* =========================================================
+           ENVELOPE SWIPE / DRAG
+        ========================================================= */
+
+        const envelope =
+            document.getElementById(
+                "envelope"
+            );
+
+        const letter =
+            document.getElementById(
+                "letter"
+            );
+
+
+        let dragStartX = 0;
+
+        let isDragging = false;
+
+        let dragDistance = 0;
+
+
+        function openLetter() {
+
+            if (letterOpened) {
+                return;
+            }
+
+            letterOpened = true;
+
+            envelope.classList.add(
+                "open"
+            );
+
+            letter.classList.add(
+                "open"
+            );
+
+            createHearts(20);
+
+        }
+
+
+        /*
+          Desktop pointer down.
+        */
+
+        envelope.addEventListener(
+            "pointerdown",
+            function (event) {
+
+                dragStartX =
+                    event.clientX;
+
+                isDragging = true;
+
+                dragDistance = 0;
+
+                envelope.setPointerCapture(
+                    event.pointerId
+                );
+
+            }
+        );
+
+
+        /*
+          Pointer movement.
+        */
+
+        envelope.addEventListener(
+            "pointermove",
+            function (event) {
+
+                if (!isDragging || letterOpened) {
+                    return;
+                }
+
+                dragDistance =
+                    event.clientX -
+                    dragStartX;
+
+                // Visual feedback for swipe
+                const visualDistance = dragDistance > 0 ? dragDistance : dragDistance * 0.2;
+                envelope.style.transform = `translateX(${visualDistance}px)`;
+
+                /*
+                  Swipe RIGHT sufficiently.
+                */
+
+                if (dragDistance > 70) {
+
+                    envelope.style.transform = '';
+                    openLetter();
+
+                    isDragging = false;
+
+                }
+
+            }
+        );
+
+
+        /*
+          Pointer up.
+        */
+
+        envelope.addEventListener(
+            "pointerup",
+            function () {
+
+                if (isDragging && !letterOpened) {
+                    const visualDistance = dragDistance > 0 ? dragDistance : dragDistance * 0.2;
+                    envelope.animate(
+                        [
+                            { transform: `translateX(${visualDistance}px)` },
+                            { transform: "translateX(0)" }
+                        ],
+                        { duration: 300, easing: "ease-out" }
+                    );
+                    envelope.style.transform = '';
+                }
+
+                isDragging = false;
+
+            }
+        );
+
+
+        envelope.addEventListener(
+            "pointercancel",
+            function () {
+
+                if (isDragging && !letterOpened) {
+                    envelope.style.transform = '';
+                }
+
+                isDragging = false;
+
+            }
+        );
+
+
+        /*
+          Also allow simple tap on envelope
+          after a few failed swipe attempts.
+          This is useful on very small screens.
+        */
+
+        let tapStartTime = 0;
+
+        envelope.addEventListener(
+            "pointerdown",
+            function () {
+
+                tapStartTime =
+                    Date.now();
+
+            }
+        );
+
+
+        envelope.addEventListener(
+            "pointerup",
+            function (event) {
+
+                const tapDuration =
+                    Date.now() -
+                    tapStartTime;
+
+                const distance =
+                    Math.abs(
+                        event.clientX -
+                        dragStartX
+                    );
+
+
+                /*
+                  A quick tap does NOT open immediately.
+                  Swipe is the primary interaction.
+                */
+
+                if (
+                    tapDuration < 180 &&
+                    distance < 15
+                ) {
+
+                    /*
+                      Small visual feedback.
+                    */
+
+                    envelope.animate(
+                        [
+                            {
+                                transform:
+                                    "translateX(0)"
+                            },
+                            {
+                                transform:
+                                    "translateX(7px)"
+                            },
+                            {
+                                transform:
+                                    "translateX(-7px)"
+                            },
+                            {
+                                transform:
+                                    "translateX(0)"
+                            }
+                        ],
+                        {
+                            duration: 300
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           INITIAL EXPERIENCE
+        ========================================================= */
+
+        createHearts(10);
+
+
+        /*
+          Periodically add subtle hearts.
+        */
+
+        setInterval(
+            function () {
+
+                if (
+                    currentScreen !== 6
+                ) {
+
+                    createHearts(3);
+
+                }
+
+            },
+            5500
+        );
+
+    </script>
+
+</body>
+
+</html>
