@@ -18,6 +18,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        *::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
         html,
@@ -786,17 +791,15 @@
             text-align: left;
 
             transform:
-                translateY(105%);
+                translateX(-105%);
 
             transition:
                 transform 1s cubic-bezier(0.18, 0.85, 0.2, 1);
-
-            scrollbar-width: thin;
         }
 
         .letter.open {
             transform:
-                translateY(-1%);
+                translateX(0);
         }
 
         .letter h2 {
@@ -998,8 +1001,6 @@
                 blur(18px);
 
             text-align: left;
-
-            scrollbar-width: thin;
         }
 
         .final-card h2 {
